@@ -1,30 +1,54 @@
-let elements = document.querySelectorAll('.wraper-4-content');
+const slider = () => {
+  let elements = document.querySelectorAll(".wraper-4-content");
 
-const keyLeft = document.querySelector('.left-button');
+  const keyLeft = document.querySelector(".left-button");
 
-const keyRight = document.querySelector('.right-button');
+  const keyRight = document.querySelector(".right-button");
 
-let i = 2;
+  let i = 2;
 
-const block = ()=>{
-    keyLeft.disabled = i < 0;
-    keyRight.disabled = i > 2;
-    if(i<0){i=0;}
-    if(i>2){i=2;}
-}
+  let l = 1;
 
-keyLeft.addEventListener('click',()=>{
-      i--;
-      elements[i].style.zIndex = 2;
-      elements[i+1].style.zIndex = 0;
-      block();
-      // console.log(i);     
-});
+  let r = 1;
 
-keyRight.addEventListener('click',()=>{
-      i++;
-      elements[i].style.zIndex = 2;
-      elements[i-1].style.zIndex = 0;
-      block();
-      // console.log(i);   
-})
+  const block = () => {
+    keyLeft.disabled = i <= 0;
+    keyRight.disabled = i >= 2;
+    if (i === 0) {
+      keyLeft.style.color = "#757888";
+      keyLeft.style.fontSize = "36px";
+      l = 0;
+    }
+    if (i === 2) {
+      keyRight.style.color = "#757888";
+      keyRight.style.fontSize = "36px";
+      r = 0;
+    }
+    if (i > 0 && i < 2) {
+      keyRight.style.color = "#272d4e";
+      keyLeft.style.color = "#272d4e";
+      keyRight.style.fontSize = "40px";
+      keyLeft.style.fontSize = "40px";
+      l = 1;
+      r = 1;
+    }
+  };
+  block();
+  keyLeft.addEventListener("click", () => {
+    i -= l;
+    elements[i].style.zIndex = 2;
+    elements[i + 1].style.zIndex = 0;
+    block();
+    // console.log(i);
+  });
+
+  keyRight.addEventListener("click", () => {
+    i += r;
+    elements[i].style.zIndex = 2;
+    elements[i - 1].style.zIndex = 0;
+    block();
+    // console.log(i);
+  });
+};
+slider();
+
